@@ -32,6 +32,7 @@ class TextManagePage extends StatefulWidget {
 
 class _TextManagePageState extends State<TextManagePage> {
   final TextEditingController _controller = TextEditingController();
+  String _result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +66,42 @@ class _TextManagePageState extends State<TextManagePage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(10.0),
                 ),
                 onPressed: () {
-                  // Espacio Trabajar con el texto ingresado
-                  print('Texto ingresado: ${_controller.text}');
+                  // Se trabaja con el texto ingresado
+                  final text = _controller.text;
+                  final letterCount = <String, int>{};
+                  for (var char in text.split('')) {
+                    letterCount[char] = (letterCount[char] ?? 0) + 1;
+                  }
+                  setState(() {
+                    _result = letterCount.entries.map((e) => '${e.key}: ${e.value}').join(', ');
+                  });
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
+                  children: [
                     Icon(Icons.auto_fix_high),
                     SizedBox(width: 10),
                     Text('Haz Magia'),
                   ],
                 ),
               ),
+              if (_result.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Color(0xFFDDDDDD), width: 0.5),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(_result),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
