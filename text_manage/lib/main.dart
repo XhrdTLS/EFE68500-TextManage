@@ -48,7 +48,7 @@ class _TextManagePageState extends State<TextManagePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Contador de letras',
+                'Contador de caracteres',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
@@ -57,6 +57,7 @@ class _TextManagePageState extends State<TextManagePage> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
+              /// Seccion para ingresar texto
               TextField(
                 controller: _controller,
                 decoration: const InputDecoration(
@@ -84,21 +85,24 @@ class _TextManagePageState extends State<TextManagePage> {
                   children: [
                     Icon(Icons.auto_fix_high),
                     SizedBox(width: 10),
-                    Text('Haz Magia'),
+                    Text('Haz Magia', style: TextStyle(fontSize: 20),),
                   ],
                 ),
               ),
+              
+              /// Seccion para mostrar el resultado
               if (_result.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 Card(
                   color: Colors.white,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xFFDDDDDD), width: 0.5),
-                    borderRadius: BorderRadius.circular(4.0),
+                    side: const BorderSide(color: Color(0xFFDDDDDD), width: 2),
+                    borderRadius: BorderRadius.circular(6.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(_result),
+                    child: Text("Resultados: \n$_result", style: const TextStyle(fontSize: 16),),
                   ),
                 ),
               ],
